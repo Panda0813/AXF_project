@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'cart/js/cart.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="cart">
+<h3><b>我的购物车</b></h3>
+<div style="overflow: auto">
+<section class="full">
+    <section>
+        {# 收货信息 #}
+        <span style="font-size: 0.4rem;padding-left: 0.3rem">收货人信息</span>
+
+        <ul>
+            <li>
+                <div class="clear">
+                    <p class="infoJustify">收货人<b></b></p><p>:<span class="receive">{{ address.name }}</span></p>
+                </div>
+            </li>
+            <li>
+                <div class="clear">
+                    <p class="infoJustify">电话<b></b></p><p>:<span class="receive">{{ address.phone }}</span>
+                    <a href="/address/0/0"
+                       style="font-size: 0.4rem;color: blue;right: 0.4rem;position: absolute">更改地址</a></p>
+                </div>
+            </li>
+            <li>
+                <div class="clear">
+                    <p class="infoJustify">地址<b></b></p><p>:<span class="receive">{{ address.address }}</span></p>
+                </div>
+            </li>
+        </ul>
+
+        {# 凑单专区/闪送超市 #}
+        <section class="bill">
+            <p>闪送超市</p>
+            <p>¥0起送,22:00前满¥30免运费</p>
+            <a href="#">凑单专区</a>
+        </section>
+
+        {# 收货时间 #}
+        <section class="delivery">
+            <span>收货时间</span><span>一小时送达</span><a>可预订 ></a>
+        </section>
+
+        {# 备注 #}
+        <section class="delivery">
+            <span>备注</span>
+            <input id="extmsg" placeholder="可输入20字以内备注信息">
+        </section>
+
+        {# 订单 #}
+        <menu>
+            <ul>
+                {% for cart in carts %}
+                <li class="menuList">
+                    <div class="confirm">
+                        <span class="ischose">
+                            <span id="{{ cart.id }}">
+                                {% if cart.isSelected %}
+                                √
+                                {% endif %}
+                            </span>
+                        </span>
+                    </div>
+{#                    <div id="product">#}
+{#                    <div id="content">#}
+                    <a href="#">
+                        <img src="{{ cart.goods.productimg }}" alt="暂无照片">
+                        <p>{{ cart.goods.productname|truncatechars:14 }}</p>
+                        <span>
+                        <span style="font-size: 0.36rem;color: red">
+                            单价：{{ cart.goods.price }} 元
+                        </span>
+                        <a class="delete" title="{{ cart.id }}" style="cursor: pointer">
+                        <span class="glyphicon glyphicon-trash"
+                              style="position: absolute;right: 0.45rem;margin-top: 0.26rem;color: red;font-size: 0.5rem">
+                        </span>
+                        </a>
+                        </span>
+                    </a>
+                    <section>
+                        <button class="subShopping" id="{{ cart.id }}">-</button>
+                        <span>{{ cart.cnt }}</span>
+                        <button class="addShopping" id="{{ cart.id }}">+</button>
+                    </section>
+                </li>
+                {% endfor %}
+
+                <li class="payTheBill">
+                    <div class="confirm">
+                        <span id="allChose">
+                            <span>
+                                √
+                            </span>
+                        </span>
+                    </div>
+                    <p><span>全选</span><span>共计:</span>
+                         <span class="sumprice">{{ sumprice }}</span> 元</p>
+
+                </li>
+            </ul>
+        </menu>
+
+    </section>
+    <a id="toOrder" class="btn btn-primary"
+       style="position: absolute;right: 0.3rem;margin: 0.2rem 0 0.2rem 0">支付订单</a>
+</section>
+<div class="clearfix" style="height: 1.7rem"></div>
+</div>
+</div>
+
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content" style="margin: 0 20px">
+  <div class="modal-body">
+    <span id="delMsg">确定要删除此商品吗?</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="close" class="btn btn-sm btn-default" data-dismiss="modal">关闭</button>
+      <button id="ok" type="button" class="btn btn-sm btn-default">确定</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content" style="margin: 0 20px">
+  <div class="modal-body">
+    <span id="selMsg">请先选择商品</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="close" class="btn btn-sm btn-default" data-dismiss="modal">关闭</button>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

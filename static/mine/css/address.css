@@ -1,0 +1,105 @@
+#address {
+    padding: 1.5rem 0;
+    position: absolute;
+    z-index: +500;  /*让图层放在最上面*/
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+    overflow: auto;
+}
+
+#back{
+    position: fixed;
+    top: 0;
+    z-index: +200;
+    padding: 0.3rem;
+}
+
+#add{
+    position: fixed;
+    bottom: 0;
+    z-index: +300;
+    padding: 0.3rem;
+    width: 100%;
+    text-align: center;
+    margin: 0.35rem 0 0 0;
+    background-color: white;
+    line-height: 1.3rem;
+}
+
+#add > div{
+    width: 88%;
+    line-height: 1rem;
+    background-color: #ff810c;
+    margin: auto;
+    border-radius: 1.2rem;
+}
+
+#add > div > a{
+    font-size: 0.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+    position: fixed; /*固定位置*/
+    z-index: +100;
+    width: 100%;
+    height: 2rem;
+    border-bottom: 0.04rem solid lightgrey;
+    line-height: 2rem;
+    background: white;
+    top: 0;
+}
+
+#address > div{
+    margin-top: 0.5rem;
+    overflow: auto;
+    padding: 5px;
+}
+
+#address > div > .addressInfo{
+    padding: 5px;
+    font-size: 0.42rem;
+    background-color: #cff0f0;
+    border-radius: 5px;
+    margin-bottom: 0.3rem;
+    box-shadow: 2px 2px 4px grey;
+}
+
+
+.addressInfo  p a{
+    cursor: pointer;
+}
+
+#orderGoods {
+    overflow: auto;
+    /*height: 6rem;*/
+    width: 100%;
+    border: 1px dashed lightgray;
+    text-align: center;
+    padding-left: 10px;
+    background-color: white;
+}
+
+.isChose{
+    text-align: center;
+  box-sizing: border-box;
+  border: 0.04rem solid orange;
+  background: white;
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  overflow: hidden;
+  border-radius: 50%;
+  line-height: 0.6rem;
+  cursor: pointer;
+}
+
+.isChose > span{
+  background: yellow;
+  font-size: 0.5rem;
+  display: block;
+}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'order/css/order.css' %}">
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'order/js/order.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="order">
+<p>
+    <a id="back" class="glyphicon glyphicon-arrow-left"></a>
+</p>
+<h3><b>我的订单</b></h3>
+<div>
+<section class="orderInfo">
+    <p><strong>
+        订单金额：
+    </strong>
+        <span style="color: red;font-weight: bold;font-size: 0.48rem">￥ {{ order.orderPrice }} 元</span>
+        {% if order.payState == 0 %}
+            <span style="position: absolute;right: 0.4rem;font-size: 0.48rem">未支付</span>
+        {% endif %}
+    </p>
+    <hr style="margin: 5px 0 5px 0;border: 0.05rem dashed #acacac">
+    <div>
+    <p><strong>收货信息</strong></p>
+    <p>收货人：
+    <span style="color: blue;font-weight: bold;">{{ order.order_address.name }}</span>
+    <span>{{ order.order_address.phone }}</span>
+    </p>
+    <p>地址：<span>{{ order.order_address.address }}</span></p>
+    </div>
+</section>
+
+    <menu id="orderGoods">
+        <ul>
+            {% for orderitem in order.ordergoods_set.all %}
+            <li>
+                <dl style="line-height: 1px">
+                    <dt>
+                        <img src="{{ orderitem.goods.productimg }}">
+                    </dt>
+                    <dd><span style="font-size: 0.35rem;color: red">单价：{{ orderitem.goods.price }}</span></dd>
+                    <dd><span style="font-size: 0.35rem;color: red">X {{ orderitem.cnt }}</span></dd>
+                    <dd><span>{{ orderitem.goods.productname|truncatechars:8 }}</span></dd>
+                </dl>
+            </li>
+            {% endfor %}
+            
+        </ul>
+    </menu>
+
+    {# 支付方式 #}
+    <div id="payBtn" title="{{ order.orderNum }}">
+        {% if order.payState == 0 %}
+            <button title="0" class="btn btn-warning">余额</button>
+            <button title="1" class="btn btn-primary">支付宝</button>
+            <button title="2" class="btn btn-success">微信</button>
+        {% elif order.payState == 1 %}
+            <span>此订单已支付</span>
+            <span>支付方式：</span><span style="color: blue">{{ order.payTypeName }}</span>
+        {% elif order.payState == 2 %}
+            <span>订单正在支付</span>
+        {% else %}
+            <span>此订单已退款</span>
+        {% endif %}
+
+    </div>
+
+    {# 支付状态的模态框 #}
+
+
+
+</div>
+
+<div class="clearfix" style="height: 1.5rem"></div>
+
+</div>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <span id="payMsg">正在支付...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content" style="margin: 0 20px">
+  <div class="modal-body">
+    <span id="addressMsg">对不起，请先完善收获地址</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="close" class="btn btn-sm btn-default" data-dismiss="modal">返回</button>
+      <button id="ok" type="button" class="btn btn-sm btn-default">添加地址</button>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

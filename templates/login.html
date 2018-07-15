@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'mine/css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div id="login">
+<div id="header">
+    <a href="/mine">
+    <span class="glyphicon glyphicon-arrow-left"></span></a>
+</div>
+<h2 style="text-align: center;font-size: 0.85rem">用户登录</h2>
+<form method="post" action="/login" class="form-horizontal">
+    {% csrf_token %}
+    <div class="input-group">
+        <span class="input-group-addon">账号</span>
+        <input class="form-control" value="{{ name }}" id="username" name="username" placeholder="请输入账号">
+    </div>
+    <span class="error"></span>
+    <div class="input-group">
+        <span class="input-group-addon">密码</span>
+        <input class="form-control" value="{{ passwd }}" id="passwd" type="password" name="passwd">
+    </div>
+    <span class="error">密码不能为空</span>
+    <div class="input-group">
+        <span class="input-group-addon">验证码</span>
+        <input class="form-control" id="verify" name="verify">
+        <span class="input-group-addon" style="padding: 0 0">
+            <img id="icode" src="/vcode" style="width: 2.5rem;height: 0.98rem"></span>
+        <span class="input-group-addon" style="padding: 0 0;">
+            <a onclick="flushcode(icode)"><span class="glyphicon glyphicon-repeat" style="width: 0.7rem">
+            </span></a></span>
+    </div>
+    <span class="error">验证码不能为空</span>
+    <span class="error" style="{% if state %}
+        display: block;
+    {% else %}
+        display: none;
+    {% endif %}">验证码不正确</span>
+    <span class="error" style="{% if error_msg %}
+        display: block;
+    {% else %}
+        display: none;
+    {% endif %}">{{ error_msg }}</span>
+    <div class="input-group">
+        <button type="button" onclick="submitMsg()" class="btn btn-success" style="width: 3rem">登录</button>
+    </div>
+    <div class="input-group">
+        还没账号?
+        <a href="/regist"
+           style="font-size:14px;color: blue;text-decoration: underline">快来注册</a>
+    </div>
+</form>
+</div>
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'mine/js/login.js' %}"></script>
+{% endblock %}

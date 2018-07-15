@@ -1,0 +1,59 @@
+#orderlist {
+    padding: 1.5rem 0;
+    position: absolute;
+    z-index: 999;  /*让图层放在最上面*/
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+    overflow: auto;
+}
+
+#back{
+    position: fixed;
+    top: 0;
+    z-index: +200;
+    padding: 0.3rem;
+}
+
+h3 {
+    text-align: center;
+    position: fixed; /*固定位置*/
+    z-index: +100;
+    width: 100%;
+    height: 2rem;
+    border-bottom: 0.04rem solid lightgrey;
+    line-height: 2rem;
+    background: white;
+    top: 0;
+}
+
+#orderlist > div{
+    margin-top: 0.5rem;
+    overflow: auto;
+    padding: 5px;
+}
+
+#orderlist > div > .orderInfo{
+    padding: 5px;
+    font-size: 0.42rem;
+    background-color: #cff0f0;
+    border-radius: 5px;
+    margin-bottom: 0.3rem;
+    box-shadow: 2px 2px 4px grey;
+}
+
+
+.orderInfo  p >strong{
+    font-size: 0.5rem;
+}
+
+#orderGoods {
+    overflow: auto;
+    /*height: 6rem;*/
+    width: 100%;
+    border: 1px dashed lightgray;
+    text-align: center;
+    padding-left: 10px;
+    background-color: white;
+}

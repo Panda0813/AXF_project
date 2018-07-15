@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'mine/css/mine.css' %}">
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'mine/js/mine.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="mine">
+<section class="fixed">
+    <input style="display: none" onchange="uploadImg(this.files[0])"
+       type="file" id="file">
+    {# 用户登录与注册 #}
+    <span>
+        {% if user %}
+        <img id="img" alt="上传头像" src="{% static user.imgpath %}" onclick="file.click()">{# 用户头像 #}
+        {% else %}
+        <span class="glyphicon glyphicon-user"></span>
+        {% endif %}
+    </span>
+    <p>
+        {% if user %}
+            <span style="font-size: 0.6rem;color: blue">{{ user.name }}</span>
+        {% else %}
+            <a href="/login">登录</a>
+        {% endif %}
+
+
+        {% if not user %}
+            <a href="/regist" style="margin-left: 0.4rem">
+            注册
+        {% endif %}
+    </a>
+    </p>
+    <p><span class="glyphicon glyphicon-fire"></span><span>等级</span></p>
+
+    <p><span class="glyphicon glyphicon-heart"></span>我的收藏</p>
+</section>
+
+{# 功能部分 #}
+<section class="mine">
+    {# 查看订单 #}
+    <p>
+        <span>我的订单</span><a href="/orderlist/0">查看全部订单></a>
+    </p>
+
+    {# 订单详情，付款，评价... #}
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="/orderlist/1">
+                    <dl>
+                        <dt>
+                            <span class="glyphicon glyphicon-usd"></span>
+                        </dt>
+                        <dd>待付款</dd>
+                    </dl>
+                </a>
+            </li>
+            <li>
+                <a href="/orderlist/2">
+                <dl>
+                    <dt>
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </dt>
+                    <dd>待收货</dd>
+                </dl>
+                </a>
+            </li>
+            <li>
+                <a href="/orderlist/3">
+                <dl>
+                    <dt>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </dt>
+                    <dd>待评价</dd>
+                </dl>
+                </a>
+            </li>
+            <li>
+                <a href="/orderlist/4">
+                <dl>
+                    <dt>
+                        <span class="glyphicon glyphicon-retweet"></span>
+                    </dt>
+                    <dd>退款/售后</dd>
+                </dl>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    {# 其它选项 #}
+    <menu>
+        <ul>
+            <li>
+                <a>
+                    <dl>
+                       <dt>
+                           <span class="glyphicon glyphicon-bullhorn"></span>
+                       </dt>
+                       <dd>积分商城</dd>
+                    </dl>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <dl>
+                       <dt>
+                           <span class="glyphicon glyphicon-credit-card"></span>
+                       </dt>
+                       <dd>优惠券</dd>
+                    </dl>
+                </a>
+            </li>
+            <li>
+                <a href="/address/0/0">
+                    <dl>
+                       <dt>
+                           <span class="glyphicon glyphicon-import"></span>
+                       </dt>
+                       <dd>收货地址</dd>
+                    </dl>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <dl>
+                       <dt>
+                           <span class="glyphicon glyphicon-phone-alt"></span>
+                       </dt>
+                       <dd>客服/反馈</dd>
+                    </dl>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <dl>
+                       <dt>
+                           <span class="glyphicon glyphicon-asterisk"></span>
+                       </dt>
+                       <dd>关于我们</dd>
+                    </dl>
+                </a>
+            </li>
+        </ul>
+    </menu>
+    <p><a href="/logout">退出当前账号</a></p>
+</section>
+</div>
+{% endblock %}

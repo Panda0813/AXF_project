@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'mine/css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="register">
+{# 返回按钮 #}
+<div id="header">
+    <a href="/mine">
+        <span class="glyphicon glyphicon-arrow-left"></span></a>
+</div>
+{# form表单 #}
+<h2 style="text-align: center;font-size: 0.85rem">用户注册</h2>
+<form class="form-horizontal" method="post" action="/regist">
+    {% csrf_token %}
+    {# 用户账号 #}
+    <div class="input-group">
+        <span class="input-group-addon">账号</span>
+        <input id="account" class="form-control" name="username"
+               title="账号" placeholder="长度为6~12个字符" aria-describedby="basic-addon1">
+    </div>
+    <span class="error">账号格式不正确</span>
+    {# 密码 #}
+    <div class="input-group">
+        <span class="input-group-addon">密码</span>
+        <input id="passwd" type="password" class="form-control" name="passwd"
+               title="密码" placeholder="长度为6~16个字符" aria-describedby="basic-addon1">
+    </div>
+    <span class="error">密码格式不正确</span>
+    {# 再次输入密码 #}
+    <div class="input-group">
+        <span class="input-group-addon">验证</span>
+        <input id="pass" type="password" class="form-control" name="pass"
+               title="密码" placeholder="长度为6~16个字符" aria-describedby="basic-addon1">
+    </div>
+    <span class="error">两次输入密码不同</span>
+    <div class="input-group">
+        <span class="input-group-addon">昵称</span>
+        <input id="name" class="form-control" name="name"
+                aria-describedby="basic-addon1" title="昵称">
+    </div>
+    <span class="error"></span>
+    <div class="input-group">
+        <span class="input-group-addon">电话</span>
+        <input id="phone" class="form-control" name="phone"
+                aria-describedby="basic-addon1" title="电话">
+
+    </div>
+    <span class="error"></span>
+    <div class="input-group">
+        <span class="input-group-addon">验证码</span>
+        <input class="form-control"
+               name="verify" placeholder="请输入手机验证码" title="验证码">
+        <span class="input-group-addon">
+            <a href="#">点击获取</a></span>
+    </div>
+    <span class="error"></span>
+    <div class="input-group">
+        <button type="button" onclick="submitMsg()" class="btn btn-success" style="width: 3rem">提交信息</button>
+    </div>
+    <div class="input-group">
+        已有账号?
+        <a href="/login"
+           style="font-size:14px;color: blue;text-decoration: underline">点击登录</a>
+    </div>
+</form>
+
+</div>
+
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'mine/js/regist.js' %}"></script>
+{% endblock %}

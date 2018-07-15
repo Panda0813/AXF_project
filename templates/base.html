@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">  {# 中文 #}
+{% load static from staticfiles %}  {# 加载静态资源 #}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    {# 导入静态资源 #}
+    <link rel="stylesheet" href="{% static '/main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/main/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static '/main/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static '/main/css/base.css' %}">
+
+    {% block extCss %}
+        {# 继承模板要添加的自己CSS样式  #}
+    {% endblock %}
+
+</head>
+<body>
+<header></header>
+{% block content %}
+
+{% endblock %}
+<footer>
+    <a class="home" href="/">
+        <dl>
+            <dt><span></span></dt>
+            <dd>主页</dd>
+        </dl>
+    </a>
+    <a class="market" href="/market/104749/0/0">
+        <dl>
+            <dt><span></span></dt>
+            <dd>闪送超市</dd>
+        </dl>
+    </a>
+    <a class="cart" href="/cart">
+        <dl>
+            <dt><span></span></dt>
+            <dd>购物车</dd>
+        </dl>
+    </a>
+    <a class="mines" href="/mine">
+        <dl>
+            <dt><span></span></dt>
+            <dd>我的</dd>
+        </dl>
+    </a>
+</footer>
+<script src="{% static 'main/js/jquery.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'main/js/swiper.min.js' %}"></script>
+<script src="{% static 'main/js/base.js' %}"></script>
+{% block extjs %}
+    {# 扩展的js #}
+{% endblock %}
+
+</body>
+</html>

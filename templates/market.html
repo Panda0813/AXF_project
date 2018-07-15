@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'market/css/market.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="market">
+{# 左侧菜单栏，使用aside #}
+<aside>
+    <menu>
+        <ul>
+            {% for item in leftSlider %}
+                <li>
+                    {# 左边的黄色竖线 #}
+                    {% if item.typeid == categoryid %}
+                        <span class="yellowSlide"></span>
+                    {% endif %}
+                    <a href="/market/{{ item.typeid }}/0/0">
+                        {{ item.typename }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </menu>
+
+
+</aside>
+
+<section>
+    <nav>
+        <ul style="cursor: pointer">
+            <li>
+                <span id="allType">全部分类
+                    <span class="glyphicon glyphicon-chevron-up last-child"></span>
+            </span>
+            </li>
+            <li>
+                <span id="goodsSort">综合排序
+                    <span class="glyphicon glyphicon-chevron-up last-child"></span>
+            </span>
+            </li>
+        </ul>
+    </nav>
+
+    <menu>
+    {# ul-li显示商品 #}
+        <ul>
+            {% for item in goodList %}
+            <li>
+            {# 从上到下：描述，精选/添加按钮（买一赠一），规格，价格、市场价 #}
+            <a href="#">
+                <img src="{{ item.productimg }}" />
+                <article class="shoppingInfo">
+                    <h6>{{ item.productlongname }}</h6>
+                    <p class="detailTag"><span>精选</span>
+                        <span id="store{{ item.productid }}">{{ item.storenums }}</span>
+                    </p>
+                    <span class="unit1">{{ item.specifics }}</span><br>
+                    <span class="unit2">销量：{{ item.productnum }}</span>
+                    <p class="price"><span>￥{{ item.price }}</span><s><span>￥{{ item.marketprice }}</span></s></p>
+                </article>
+            </a>
+            {# 按钮功能 #}
+            <section>
+                <span id="add{{ item.productid }}" class="addShopping" title="{{ item.storenums }}">
+                {% if item.storenums == 0 %}
+                <a class="glyphicon glyphicon-plus"
+                   data-toggle="modal" data-target="#storeModal" style="color: grey">  {# 库存不够,添加按钮禁用 #}
+                </a>
+                {% else %}
+                <a class="add"
+                   title="{{ item.productid }}" style="z-index: +300">
+                <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                {% endif %}
+                </span>
+            </section>
+            </li>
+            {% endfor %}
+            
+        </ul>
+
+    <div id="typeDiv">
+        <div>
+            {% for ctype in childTypes %}
+                {# 进行判断，当选中时，给选中项添加样式 #}
+                <a href="/market/{{ categoryid }}/{{ ctype.id }}/0">
+                {% if ctype.id == childid %}
+                    <span class="selected">
+                {% else %}
+                    <span>
+                {% endif %}
+                {{ ctype.name }}</span></a>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div id="sortDiv">
+        <div>
+            <a href="/market/{{ categoryid }}/{{ childid }}/0">
+                {% if opt == 0 %}
+                <span class="selected">
+                {% else %}
+                    <span>
+                {% endif %}
+                综合排序</span></a>
+            <a href="/market/{{ categoryid }}/{{ childid }}/1">
+                {% if opt == 1 %}
+                <span class="selected">
+                {% else %}
+                    <span>
+                {% endif %}
+                销量最高</span></a>
+            <a href="/market/{{ categoryid }}/{{ childid }}/2">
+                {% if opt == 2 %}
+                <span class="selected">
+                {% else %}
+                    <span>
+                {% endif %}
+                价格最低</span></a>
+            <a href="/market/{{ categoryid }}/{{ childid }}/3">
+                {% if opt == 3 %}
+                <span class="selected">
+                {% else %}
+                    <span>
+                {% endif %}
+                价格最高</span></a>
+        </div>
+    </div>
+
+    </menu>
+
+</section>
+
+</div>
+
+<div class="modal" id="storeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content" style="margin: 0 20px">
+  <div class="modal-body">
+    <span id="selMsg">对不起，库存不够了</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="close" class="btn btn-sm btn-default" data-dismiss="modal">关闭</button>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block extjs %}
+    <script src="{% static 'market/js/market.js' %}"></script>
+{% endblock %}
